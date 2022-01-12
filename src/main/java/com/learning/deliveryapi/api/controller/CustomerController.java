@@ -1,9 +1,13 @@
 package com.learning.deliveryapi.api.controller;
 
 import com.learning.deliveryapi.domain.model.Customer;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.learning.deliveryapi.domain.repository.CustomerRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -11,15 +15,27 @@ import java.util.List;
 @RequestMapping("delivery-api/v1/customers")
 public class CustomerController {
 
+    Logger logger = LoggerFactory.getLogger(CustomerController.class);
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
     @GetMapping
-    public List<Customer> listAll() {
-        var customer = new Customer();
+    @ResponseStatus(HttpStatus.OK)
+    public List<Customer> getAll() {
+        return customerRepository.findAll();
+    }
 
-        customer.setId(1L);
-        customer.setEmail("caio.antonio.c@outlook.com");
-        customer.setName("Caio");
-        customer.setPhoneNumber("19 99999-1111");
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Customer> getById(@PathVariable Long id) {
+        return customerRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
-        return List.of(customer);
+    @PostMapping
+    public Customer createNewCustomer(@RequestBody Customer customer) {
+        return customerRepository.save(customer);
     }
 }
