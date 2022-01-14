@@ -26,7 +26,7 @@ public class CustomerService {
 
     public Customer getById(Long customerId) {
         return customerRepository.findById(customerId)
-                .orElseThrow(() -> new BusinessException("Customer not found."));
+                .orElseThrow(() -> new BusinessException("Cliente não encontrado."));
     }
 
     @Transactional
@@ -40,7 +40,7 @@ public class CustomerService {
 
         if (emailInUse) {
             logger.error("Nome {} já existe na base de dados.", customer.getEmail());
-            throw new BusinessException("There is already a customer registered with this email.");
+            throw new BusinessException("Já existe um cliente cadastrado com este e-mail.");
         }
 
         var save = customerRepository.save(customer);
