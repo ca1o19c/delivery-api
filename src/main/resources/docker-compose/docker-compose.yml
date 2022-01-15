@@ -1,0 +1,18 @@
+version: '3'
+services:
+    db:
+        container_name: db_delivery_api
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_DATABASE: delivery-api
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - '3306:3306'
+        expose:
+            - '3306'
+        volumes:
+            - db_delivery_api:/var/lib/mysql
+
+volumes:
+    db_delivery_api:
