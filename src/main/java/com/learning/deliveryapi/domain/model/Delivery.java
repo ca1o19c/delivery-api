@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -25,10 +26,10 @@ public class Delivery {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NotNull
     @ManyToOne
     private Customer customer;
 
+    @Valid
     @Embedded
     private Receiver receiver;
 
