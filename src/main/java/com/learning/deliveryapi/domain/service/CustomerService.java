@@ -40,7 +40,7 @@ public class CustomerService {
                 .anyMatch(existingCustomer -> !existingCustomer.equals(customer));
 
         if (emailInUse) {
-            logger.error("Nome {} já existe na base de dados.", customer.getEmail());
+            logger.error("E-mail {} já existe na base de dados.", customer.getEmail());
             throw new BusinessException("Já existe um cliente cadastrado com este e-mail.");
         }
 
