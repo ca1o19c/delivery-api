@@ -1,6 +1,7 @@
 package com.learning.deliveryapi.domain.service;
 
 import com.learning.deliveryapi.domain.exception.BusinessException;
+import com.learning.deliveryapi.domain.exception.EntityNotFoundException;
 import com.learning.deliveryapi.domain.model.Customer;
 import com.learning.deliveryapi.domain.repository.CustomerRepository;
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public class CustomerService {
 
     public Customer getById(Long customerId) {
         return customerRepository.findById(customerId)
-                .orElseThrow(() -> new BusinessException("Cliente não encontrado."));
+                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado."));
     }
 
     @Transactional
