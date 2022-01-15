@@ -41,7 +41,7 @@ public class CustomerController {
 
         var newCustomerId = customerService.saveCustomer(customer);
 
-        return ResponseEntity.created(builder.path("delivery-api/v1/customers/{customerId}")
+        return ResponseEntity.created(builder.path("delivery-api/v1/customers/{customer-id}")
                 .buildAndExpand(newCustomerId).toUri()).build();
     }
 
