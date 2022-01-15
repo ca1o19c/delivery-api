@@ -2,8 +2,6 @@ package com.learning.deliveryapi.api.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.learning.deliveryapi.domain.model.Customer;
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 

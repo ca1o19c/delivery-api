@@ -1,10 +1,7 @@
 package com.learning.deliveryapi.api.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.learning.deliveryapi.domain.model.Delivery;
 import com.learning.deliveryapi.domain.model.Receiver;
-import lombok.Getter;
-import lombok.Setter;
 
 import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 
@@ -61,7 +58,7 @@ public class ReceiverResponse {
         return this;
     }
 
-    public static ReceiverResponse from (Receiver receiver) {
+    public static ReceiverResponse from(Receiver receiver) {
         return new ReceiverResponse()
                 .setName(receiver.getName())
                 .setComplement(receiver.getComplement())

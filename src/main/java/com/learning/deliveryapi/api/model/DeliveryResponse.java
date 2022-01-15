@@ -1,12 +1,8 @@
 package com.learning.deliveryapi.api.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.learning.deliveryapi.domain.model.Customer;
 import com.learning.deliveryapi.domain.model.Delivery;
 import com.learning.deliveryapi.domain.model.DeliveryStatus;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -87,7 +83,7 @@ public class DeliveryResponse {
         return this;
     }
 
-    public static DeliveryResponse from (Delivery delivery) {
+    public static DeliveryResponse from(Delivery delivery) {
         return new DeliveryResponse()
                 .setId(delivery.getId())
                 .setReceiver(ReceiverResponse.from(delivery.getReceiver()))
