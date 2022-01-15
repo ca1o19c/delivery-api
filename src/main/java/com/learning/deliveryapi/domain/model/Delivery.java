@@ -5,14 +5,15 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.Objects;
 
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
 @ToString
@@ -42,9 +43,22 @@ public class Delivery {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column(name = "request_date")
-    private LocalDateTime requestDate;
+    private OffsetDateTime requestDate;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column(name = "finished_date")
-    private LocalDateTime finishedDate;
+    private OffsetDateTime finishedDate;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Delivery delivery = (Delivery) o;
+        return id != null && Objects.equals(id, delivery.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
