@@ -2,12 +2,14 @@ package com.learning.deliveryapi.domain.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Getter
 @Setter
+@ToString
 @Embeddable
 public class Receiver {
 

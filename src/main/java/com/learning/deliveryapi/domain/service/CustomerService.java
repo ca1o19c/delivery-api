@@ -27,21 +27,21 @@ public class CustomerService {
 
     public Customer getById(Long customerId) {
         return customerRepository.findById(customerId)
-                .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado."));
+                .orElseThrow(() -> new EntityNotFoundException("Customer not found."));
     }
 
     @Transactional
     public Long saveCustomer(Customer customer) {
 
-        logger.info("Criando nova entrada na nossa base de dados. Request: {}", customer);
+        logger.info("Creating a new entry in the database. Request: {}", customer);
 
         var emailInUse = customerRepository.findByEmail(customer.getEmail())
                 .stream()
                 .anyMatch(existingCustomer -> !existingCustomer.equals(customer));
 
         if (emailInUse) {
-            logger.error("E-mail {} já existe na base de dados.", customer.getEmail());
-            throw new BusinessException("Já existe um cliente cadastrado com este e-mail.");
+            logger.error("Email {} already exists in the database.", customer.getEmail());
+            throw new BusinessException("There is already a customer registered with this email.");
         }
 
         var save = customerRepository.save(customer);
@@ -49,6 +49,7 @@ public class CustomerService {
         return save.getId();
     }
 
+    @Transactional
     public void updateCustomer(Customer customer, Long customerId) {
         var id = customerId;
 
