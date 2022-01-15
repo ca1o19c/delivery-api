@@ -22,10 +22,11 @@ public class DeliveryRequestService {
     }
 
     @Transactional
-    public Long request(Delivery delivery) {
+    public Long requestDelivery(Long customerId, Delivery delivery) {
 
-        customerService.getById(delivery.getCustomer().getId());
+        var customer = customerService.getById(customerId);
 
+        delivery.setCustomer(customer);
         delivery.setStatus(DeliveryStatus.PENDING);
         delivery.setRequestDate(LocalDateTime.now());
 

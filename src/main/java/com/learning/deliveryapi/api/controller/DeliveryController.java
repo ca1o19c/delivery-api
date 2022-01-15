@@ -18,11 +18,12 @@ public class DeliveryController {
         this.deliveryRequestService = deliveryRequestService;
     }
 
-    @PostMapping
+    @PostMapping("/{customer-id}/request-delivery")
     public ResponseEntity<Void> request(
+            @PathVariable(name = "customer-id") Long customerId,
             @Valid @RequestBody Delivery delivery,
             UriComponentsBuilder builder) {
-        var newDeliveryId = deliveryRequestService.request(delivery);
+        var newDeliveryId = deliveryRequestService.requestDelivery(customerId, delivery);
 
         return ResponseEntity.created(builder.path("delivery-api/v1/deliveries/{delivery-id}")
                 .buildAndExpand(newDeliveryId).toUri()).build();
