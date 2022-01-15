@@ -25,7 +25,7 @@ public class Delivery {
     private Customer customer;
 
     @Embedded
-    private Addressee addressee;
+    private Receiver receiver;
 
     @Column(name = "delivery_fee")
     private BigDecimal deliveryFee;

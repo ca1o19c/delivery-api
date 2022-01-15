@@ -9,20 +9,20 @@ import javax.persistence.Embeddable;
 @Getter
 @Setter
 @Embeddable
-public class Addressee {
+public class Receiver {
 
-    @Column(name = "addressee_name")
+    @Column(name = "receiver_name")
     private String name;
 
-    @Column(name = "addressee_street")
+    @Column(name = "receiver_street")
     private String street;
 
-    @Column(name = "addressee_number")
+    @Column(name = "receiver_number")
     private String number;
 
-    @Column(name = "addressee_complement")
+    @Column(name = "receiver_complement")
     private String complement;
 
-    @Column(name = "addressee_neighbourhood")
+    @Column(name = "receiver_neighbourhood")
     private String neighbourhood;
 }
