@@ -1,6 +1,5 @@
 package com.learning.deliveryapi.api.controller;
 
-import com.learning.deliveryapi.domain.model.Customer;
 import com.learning.deliveryapi.domain.model.Delivery;
 import com.learning.deliveryapi.domain.service.DeliveryRequestService;
 import org.springframework.http.HttpStatus;
