@@ -1,6 +1,7 @@
 package com.learning.deliveryapi.domain.service;
 
 import com.learning.deliveryapi.domain.exception.EntityNotFoundException;
+import com.learning.deliveryapi.domain.model.Customer;
 import com.learning.deliveryapi.domain.model.Delivery;
 import com.learning.deliveryapi.domain.model.DeliveryStatus;
 import com.learning.deliveryapi.domain.repository.DeliveryRepository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class DeliveryRequestService {
@@ -39,5 +41,9 @@ public class DeliveryRequestService {
 
         return deliveryRepository.findById(deliveryId)
                 .orElseThrow(() -> new EntityNotFoundException("Entrega não encontrada."));
+    }
+
+    public List<Delivery> getAllDeliveries() {
+        return deliveryRepository.findAll();
     }
 }

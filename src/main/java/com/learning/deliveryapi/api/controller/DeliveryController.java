@@ -1,12 +1,15 @@
 package com.learning.deliveryapi.api.controller;
 
+import com.learning.deliveryapi.domain.model.Customer;
 import com.learning.deliveryapi.domain.model.Delivery;
 import com.learning.deliveryapi.domain.service.DeliveryRequestService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("delivery-api/v1/deliveries")
@@ -16,6 +19,12 @@ public class DeliveryController {
 
     public DeliveryController(DeliveryRequestService deliveryRequestService) {
         this.deliveryRequestService = deliveryRequestService;
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Delivery> getAll() {
+        return deliveryRequestService.getAllDeliveries();
     }
 
     @PostMapping("/{customer-id}/request-delivery")
