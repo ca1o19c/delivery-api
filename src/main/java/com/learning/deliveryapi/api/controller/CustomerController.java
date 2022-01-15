@@ -32,14 +32,14 @@ public class CustomerController {
 
         return response
                 .stream()
-                .map(CustomerResponse::from)
+                .map(CustomerResponse::valueof)
                 .collect(Collectors.toUnmodifiableList());
     }
 
     @GetMapping("/{customer-id}")
     public ResponseEntity<CustomerResponse> getById(@PathVariable(name = "customer-id") Long customerId) {
         var entity = customerService.getById(customerId);
-        var response = CustomerResponse.from(entity);
+        var response = CustomerResponse.valueof(entity);
 
         return ResponseEntity.ok(response);
     }

@@ -32,7 +32,7 @@ public class DeliveryController {
 
         return response
                 .stream()
-                .map(DeliveryResponse::from)
+                .map(DeliveryResponse::valueof)
                 .collect(Collectors.toUnmodifiableList());
     }
 
@@ -50,7 +50,7 @@ public class DeliveryController {
     @GetMapping("/{delivery-id}")
     public ResponseEntity<DeliveryResponse> getById(@PathVariable(name = "delivery-id") Long deliveryId) {
         var entity = deliveryRequestService.getById(deliveryId);
-        var response = DeliveryResponse.from(entity);
+        var response = DeliveryResponse.valueof(entity);
 
         return ResponseEntity.ok(response);
     }

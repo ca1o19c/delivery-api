@@ -2,9 +2,17 @@ package com.learning.deliveryapi.api.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.learning.deliveryapi.domain.model.Customer;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
 @JsonNaming(SnakeCaseStrategy.class)
 public class CustomerResponse {
 
@@ -49,11 +57,12 @@ public class CustomerResponse {
         return this;
     }
 
-    public static CustomerResponse from(Customer customer) {
-        return new CustomerResponse()
-                .setId(customer.getId())
-                .setEmail(customer.getEmail())
-                .setName(customer.getName())
-                .setPhoneNumber(customer.getPhoneNumber());
+    public static CustomerResponse valueof (Customer customer) {
+        return CustomerResponse.builder()
+                .id(customer.getId())
+                .email(customer.getEmail())
+                .name(customer.getName())
+                .phoneNumber(customer.getPhoneNumber())
+                .build();
     }
 }
