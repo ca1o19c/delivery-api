@@ -6,11 +6,11 @@ CREATE TABLE deliveries (
 	request_date DATETIME NOT NULL,
 	finished_date DATETIME,
 
-	addressee_name VARCHAR(60) NOT NULL,
-	addressee_street VARCHAR(255) NOT NULL,
-	addressee_number VARCHAR(30) NOT NULL,
-	addressee_complement VARCHAR(60),
-	addressee_neighbourhood VARCHAR(30) NOT NULL,
+	receiver_name VARCHAR(60) NOT NULL,
+	receiver_street VARCHAR(255) NOT NULL,
+	receiver_number VARCHAR(30) NOT NULL,
+	receiver_complement VARCHAR(60),
+	receiver_neighbourhood VARCHAR(30) NOT NULL,
 
 	PRIMARY KEY (id),
 	UNIQUE (id)
