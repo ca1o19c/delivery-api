@@ -1,5 +1,6 @@
 package com.learning.deliveryapi.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,9 +37,11 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column(name = "request_date")
     private LocalDateTime requestDate;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column(name = "finished_date")
     private LocalDateTime finishedDate;
 }
