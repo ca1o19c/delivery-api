@@ -1,7 +1,7 @@
 package com.learning.deliveryapi.api.controller;
 
+import com.learning.deliveryapi.api.model.DeliveryRequest;
 import com.learning.deliveryapi.api.model.DeliveryResponse;
-import com.learning.deliveryapi.domain.model.Delivery;
 import com.learning.deliveryapi.domain.service.DeliveryRequestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,9 +39,9 @@ public class DeliveryController {
     @PostMapping("/{customer-id}/request-delivery")
     public ResponseEntity<Void> request(
             @PathVariable(name = "customer-id") Long customerId,
-            @Valid @RequestBody Delivery delivery,
+            @Valid @RequestBody DeliveryRequest request,
             UriComponentsBuilder builder) {
-        var newDeliveryId = deliveryRequestService.requestDelivery(customerId, delivery);
+        var newDeliveryId = deliveryRequestService.requestDelivery(customerId, request);
 
         return ResponseEntity.created(builder.path("delivery-api/v1/deliveries/{delivery-id}")
                 .buildAndExpand(newDeliveryId).toUri()).build();

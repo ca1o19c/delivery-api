@@ -1,35 +1,43 @@
 package com.learning.deliveryapi.domain.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.learning.deliveryapi.api.model.ReceiverRequest;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
+@Builder
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Embeddable
 public class Receiver {
 
-    @NotBlank
     @Column(name = "receiver_name")
     private String name;
 
-    @NotBlank
     @Column(name = "receiver_street")
     private String street;
 
-    @NotBlank
     @Column(name = "receiver_number")
     private String number;
 
     @Column(name = "receiver_complement")
     private String complement;
 
-    @NotBlank
     @Column(name = "receiver_neighbourhood")
     private String neighbourhood;
+
+    public static Receiver valueof(ReceiverRequest receiverRequest) {
+        return Receiver.builder()
+                .name(receiverRequest.getName())
+                .street(receiverRequest.getStreet())
+                .number(receiverRequest.getNumber())
+                .neighbourhood(receiverRequest.getNeighbourhood())
+                .complement(receiverRequest.getComplement())
+                .build();
+    }
+
 }

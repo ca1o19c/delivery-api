@@ -1,5 +1,6 @@
 package com.learning.deliveryapi.api.controller;
 
+import com.learning.deliveryapi.api.model.CustomerRequest;
 import com.learning.deliveryapi.api.model.CustomerResponse;
 import com.learning.deliveryapi.domain.model.Customer;
 import com.learning.deliveryapi.domain.service.CustomerService;
@@ -46,10 +47,12 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<Void> createNewCustomer(
-            @Valid @RequestBody Customer customer,
+            @Valid @RequestBody CustomerRequest request,
             UriComponentsBuilder builder) {
 
-        var newCustomerId = customerService.saveCustomer(customer);
+        var entity = Customer.valueof(request);
+
+        var newCustomerId = customerService.saveCustomer(entity);
 
         return ResponseEntity.created(builder.path("delivery-api/v1/customers/{customer-id}")
                 .buildAndExpand(newCustomerId).toUri()).build();
@@ -58,9 +61,12 @@ public class CustomerController {
     @PutMapping("/{customer-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCustomer(
-            @Valid @RequestBody Customer customer,
+            @Valid @RequestBody CustomerRequest request,
             @PathVariable(name = "customer-id") Long customerId) {
-        customerService.updateCustomer(customer, customerId);
+
+        var entity = Customer.valueof(request);
+
+        customerService.updateCustomer(entity, customerId);
     }
 
     @DeleteMapping("/{customer-id}")

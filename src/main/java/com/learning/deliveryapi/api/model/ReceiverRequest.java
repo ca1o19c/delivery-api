@@ -6,24 +6,28 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
+import javax.validation.constraints.NotBlank;
 
 import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
 @JsonNaming(SnakeCaseStrategy.class)
-public class DeliveryRequest {
+public class ReceiverRequest {
 
-    private CustomerRequest customer;
+    @NotBlank
+    private String name;
 
-    @Valid
-    private ReceiverRequest receiver;
+    @NotBlank
+    private String street;
 
-    @NotNull
-    private BigDecimal deliveryFee;
+    @NotBlank
+    private String number;
+
+    private String complement;
+
+    @NotBlank
+    private String neighbourhood;
 }

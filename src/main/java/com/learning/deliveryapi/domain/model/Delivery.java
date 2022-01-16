@@ -1,24 +1,22 @@
 package com.learning.deliveryapi.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.learning.deliveryapi.api.model.DeliveryRequest;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Getter
 @Setter
+@Builder
 @ToString
 @Entity
 @Table(name = "deliveries")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Delivery {
 
     @Id
@@ -30,24 +28,28 @@ public class Delivery {
     @ManyToOne
     private Customer customer;
 
-    @Valid
     @Embedded
     private Receiver receiver;
 
-    @NotNull
     @Column(name = "delivery_fee")
     private BigDecimal deliveryFee;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column(name = "request_date")
     private OffsetDateTime requestDate;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column(name = "finished_date")
     private OffsetDateTime finishedDate;
+
+    public static Delivery valueof(DeliveryRequest deliveryRequest) {
+        return Delivery.builder()
+                .customer(Customer.valueof(deliveryRequest.getCustomer()))
+                .receiver(Receiver.valueof(deliveryRequest.getReceiver()))
+                .deliveryFee(deliveryRequest.getDeliveryFee())
+                .build();
+    }
 
     @Override
     public boolean equals(Object o) {

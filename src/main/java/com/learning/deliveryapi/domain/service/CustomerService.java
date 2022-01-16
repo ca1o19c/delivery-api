@@ -49,11 +49,9 @@ public class CustomerService {
         return save.getId();
     }
 
-    @Transactional
     public void updateCustomer(Customer customer, Long customerId) {
-        var id = customerId;
 
-        var entity = getById(id);
+        var entity = getById(customerId);
 
         entity.setName(customer.getName());
         entity.setEmail(customer.getEmail());
