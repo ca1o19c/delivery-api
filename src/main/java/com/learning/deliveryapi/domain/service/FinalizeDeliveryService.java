@@ -4,9 +4,6 @@ import com.learning.deliveryapi.domain.repository.DeliveryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.learning.deliveryapi.domain.model.DeliveryStatus.FINISHED;
-import static com.learning.deliveryapi.domain.model.DeliveryStatus.PENDING;
-
 @Service
 public class FinalizeDeliveryService {
 
