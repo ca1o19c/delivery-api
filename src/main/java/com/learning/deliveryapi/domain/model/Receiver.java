@@ -39,5 +39,4 @@ public class Receiver {
                 .complement(receiverRequest.getComplement())
                 .build();
     }
-
 }
