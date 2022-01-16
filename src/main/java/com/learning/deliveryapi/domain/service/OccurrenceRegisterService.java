@@ -5,6 +5,8 @@ import com.learning.deliveryapi.domain.repository.DeliveryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class OccurrenceRegisterService {
 
@@ -22,5 +24,11 @@ public class OccurrenceRegisterService {
         var delivery = deliveryRequestService.getById(deliveryId);
 
         return delivery.addOccurrence(description);
+    }
+
+    public List<Occurrence> getById(Long deliveryId) {
+        var delivery = deliveryRequestService.getById(deliveryId);
+
+        return delivery.getOcurrences();
     }
 }

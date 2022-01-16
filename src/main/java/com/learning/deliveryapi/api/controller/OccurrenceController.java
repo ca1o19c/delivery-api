@@ -7,9 +7,12 @@ import com.learning.deliveryapi.domain.service.OccurrenceRegisterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("delivery-api/v1/deliveries/{delivery-id}/occurrences")
@@ -33,5 +36,17 @@ public class OccurrenceController {
         var occurrence = occurrenceRegisterService.occurrenceRegister(deliveryId, description);
 
         return OccurrenceResponse.from(occurrence);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<OccurrenceResponse>> getById(@PathVariable(name = "delivery-id") Long deliveryId) {
+        var entity = occurrenceRegisterService.getById(deliveryId);
+
+        var response = entity
+                .stream()
+                .map(OccurrenceResponse::from)
+                .collect(Collectors.toUnmodifiableList());
+
+        return ResponseEntity.ok(response);
     }
 }

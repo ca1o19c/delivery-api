@@ -1,6 +1,5 @@
 package com.learning.deliveryapi.domain.service;
 
-import com.learning.deliveryapi.api.model.CustomerRequest;
 import com.learning.deliveryapi.api.model.DeliveryRequest;
 import com.learning.deliveryapi.domain.exception.EntityNotFoundException;
 import com.learning.deliveryapi.domain.model.Delivery;
