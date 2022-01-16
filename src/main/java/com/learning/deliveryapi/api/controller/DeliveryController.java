@@ -2,7 +2,9 @@ package com.learning.deliveryapi.api.controller;
 
 import com.learning.deliveryapi.api.model.DeliveryRequest;
 import com.learning.deliveryapi.api.model.DeliveryResponse;
+import com.learning.deliveryapi.domain.service.CancelDeliveryService;
 import com.learning.deliveryapi.domain.service.DeliveryRequestService;
+import com.learning.deliveryapi.domain.service.FinalizeDeliveryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -19,10 +21,17 @@ import java.util.stream.Collectors;
 public class DeliveryController {
 
     private final DeliveryRequestService deliveryRequestService;
+    private final FinalizeDeliveryService finalizeDeliveryService;
+    private final CancelDeliveryService cancelDeliveryService;
+
     Logger logger = LoggerFactory.getLogger(DeliveryController.class);
 
-    public DeliveryController(DeliveryRequestService deliveryRequestService) {
+    public DeliveryController(DeliveryRequestService deliveryRequestService,
+                              FinalizeDeliveryService finalizeDeliveryService,
+                              CancelDeliveryService cancelDeliveryService) {
         this.deliveryRequestService = deliveryRequestService;
+        this.finalizeDeliveryService = finalizeDeliveryService;
+        this.cancelDeliveryService = cancelDeliveryService;
     }
 
     @GetMapping
@@ -34,6 +43,18 @@ public class DeliveryController {
                 .stream()
                 .map(DeliveryResponse::from)
                 .collect(Collectors.toUnmodifiableList());
+    }
+
+    @PutMapping("/{delivery-id}/finalize")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void finalizeDelivery(@PathVariable(name = "delivery-id") Long deliveryId) {
+        finalizeDeliveryService.finalizeDelivery(deliveryId);
+    }
+
+    @PutMapping("/{delivery-id}/cancel")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancelDelivery(@PathVariable(name = "delivery-id") Long deliveryId) {
+        cancelDeliveryService.cancelDelivery(deliveryId);
     }
 
     @PostMapping("/{customer-id}/request-delivery")

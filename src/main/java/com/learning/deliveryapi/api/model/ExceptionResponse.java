@@ -1,4 +1,4 @@
-package com.learning.deliveryapi.api.exception;
+package com.learning.deliveryapi.api.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
-public class ExceptionFormat {
+public class ExceptionResponse {
     private Integer status;
     private OffsetDateTime dateTime;
     private String title;
