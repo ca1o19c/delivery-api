@@ -12,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.learning.deliveryapi.domain.model.DeliveryStatus.FINISHED;
-import static com.learning.deliveryapi.domain.model.DeliveryStatus.PENDING;
+import static com.learning.deliveryapi.domain.model.DeliveryStatus.*;
 
 @Getter
 @Setter
@@ -60,9 +59,17 @@ public class Delivery {
 
     public void finalizeDelivery() {
         if (!canBeFinished())
-            throw new BusinessException("Unable to finalize delivery.");
+            throw new BusinessException("Could not finalize the delivery has the status: " + this.getStatus());
 
         this.setStatus(FINISHED);
+        this.setFinishedDate(OffsetDateTime.now());
+    }
+
+    public void cancelDelivery() {
+        if (!canBeFinished())
+            throw new BusinessException("Unable to cancel delivery.");
+
+        this.setStatus(CANCELED);
         this.setFinishedDate(OffsetDateTime.now());
     }
 
