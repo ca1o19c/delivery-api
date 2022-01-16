@@ -58,23 +58,23 @@ public class Delivery {
     }
 
     public void finalizeDelivery() {
-        if (!canBeFinished())
-            throw new BusinessException("Could not finalize the delivery has the status: " + this.getStatus());
+
+        checksITsPossibleToFinalizeOrCancel();
 
         this.setStatus(FINISHED);
         this.setFinishedDate(OffsetDateTime.now());
     }
 
     public void cancelDelivery() {
-        if (!canBeFinished())
-            throw new BusinessException("Unable to cancel delivery.");
+
+        checksITsPossibleToFinalizeOrCancel();
 
         this.setStatus(CANCELED);
-        this.setFinishedDate(OffsetDateTime.now());
     }
 
-    public Boolean canBeFinished() {
-        return PENDING.equals(this.getStatus());
+    public void checksITsPossibleToFinalizeOrCancel() {
+        if (!PENDING.equals(this.getStatus()))
+            throw new BusinessException("Unable to finalize or cancel delivery with " + this.getStatus() + " status");
     }
 
     @Override
