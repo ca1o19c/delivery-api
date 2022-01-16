@@ -1,5 +1,6 @@
 package com.learning.deliveryapi.api.exception;
 
+import com.learning.deliveryapi.api.model.ExceptionResponse;
 import com.learning.deliveryapi.domain.exception.BusinessException;
 import com.learning.deliveryapi.domain.exception.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -29,16 +30,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<ExceptionFormat.Field> field = new ArrayList<>();
+        List<ExceptionResponse.Field> field = new ArrayList<>();
 
         for (ObjectError error : ex.getBindingResult().getAllErrors()) {
             String name = ((FieldError) error).getField();
             String message = messageSource.getMessage(error, LocaleContextHolder.getLocale());
 
-            field.add(new ExceptionFormat.Field(name, message));
+            field.add(new ExceptionResponse.Field(name, message));
         }
 
-        var formattedException = new ExceptionFormat();
+        var formattedException = new ExceptionResponse();
         formattedException.setStatus(status.value());
         formattedException.setDateTime(OffsetDateTime.now());
         formattedException.setTitle("One or more fields are invalid. Please fill in correctly and try again.");
@@ -51,7 +52,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleEntidadeNaoEncontrada(EntityNotFoundException ex, WebRequest request) {
         var status = HttpStatus.NOT_FOUND;
 
-        var formattedException = new ExceptionFormat();
+        var formattedException = new ExceptionResponse();
         formattedException.setStatus(status.value());
         formattedException.setDateTime(OffsetDateTime.now());
         formattedException.setTitle(ex.getMessage());
@@ -63,7 +64,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNegocio(BusinessException ex, WebRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
 
-        var formattedException = new ExceptionFormat();
+        var formattedException = new ExceptionResponse();
         formattedException.setStatus(status.value());
         formattedException.setDateTime(OffsetDateTime.now());
         formattedException.setTitle(ex.getMessage());
