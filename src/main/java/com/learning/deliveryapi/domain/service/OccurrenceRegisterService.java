@@ -1,7 +1,6 @@
 package com.learning.deliveryapi.domain.service;
 
 import com.learning.deliveryapi.domain.model.Occurrence;
-import com.learning.deliveryapi.domain.repository.DeliveryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,12 +9,9 @@ import java.util.List;
 @Service
 public class OccurrenceRegisterService {
 
-    private final DeliveryRepository deliveryRepository;
     public final DeliveryRequestService deliveryRequestService;
 
-    public OccurrenceRegisterService(DeliveryRepository deliveryRepository,
-                                     DeliveryRequestService deliveryRequestService) {
-        this.deliveryRepository = deliveryRepository;
+    public OccurrenceRegisterService(DeliveryRequestService deliveryRequestService) {
         this.deliveryRequestService = deliveryRequestService;
     }
 

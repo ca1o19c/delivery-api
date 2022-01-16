@@ -1,6 +1,7 @@
 package com.learning.deliveryapi.domain.model;
 
 import com.learning.deliveryapi.api.model.DeliveryRequest;
+import com.learning.deliveryapi.domain.exception.BusinessException;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -10,6 +11,9 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.learning.deliveryapi.domain.model.DeliveryStatus.FINISHED;
+import static com.learning.deliveryapi.domain.model.DeliveryStatus.PENDING;
 
 @Getter
 @Setter
@@ -52,6 +56,18 @@ public class Delivery {
                 .receiver(Receiver.from(deliveryRequest.getReceiver()))
                 .deliveryFee(deliveryRequest.getDeliveryFee())
                 .build();
+    }
+
+    public void finalizeDelivery() {
+        if (!canBeFinished())
+            throw new BusinessException("Unable to finalize delivery.");
+
+        this.setStatus(FINISHED);
+        this.setFinishedDate(OffsetDateTime.now());
+    }
+
+    public Boolean canBeFinished() {
+        return PENDING.equals(this.getStatus());
     }
 
     @Override
