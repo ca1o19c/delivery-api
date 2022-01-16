@@ -15,9 +15,10 @@ import java.util.List;
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+
     Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(final CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
