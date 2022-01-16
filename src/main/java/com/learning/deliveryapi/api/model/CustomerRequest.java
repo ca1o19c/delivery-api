@@ -20,8 +20,6 @@ import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseS
 @JsonNaming(SnakeCaseStrategy.class)
 public class CustomerRequest {
 
-    private Long id;
-
     @NotBlank
     @Size(max = 60)
     private String name;
@@ -37,7 +35,6 @@ public class CustomerRequest {
 
     public static CustomerRequest from(Customer customer) {
         return CustomerRequest.builder()
-                .id(customer.getId())
                 .email(customer.getEmail())
                 .name(customer.getName())
                 .phoneNumber(customer.getPhoneNumber())

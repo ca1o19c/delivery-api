@@ -10,7 +10,7 @@ CREATE TABLE deliveries (
 	receiver_street VARCHAR(255) NOT NULL,
 	receiver_number VARCHAR(30) NOT NULL,
 	receiver_complement VARCHAR(60),
-	receiver_neighbourhood VARCHAR(30) NOT NULL,
+	receiver_neighbourhood VARCHAR(60) NOT NULL,
 
 	PRIMARY KEY (id),
 	UNIQUE (id)

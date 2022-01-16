@@ -37,7 +37,7 @@ public class DeliveryController {
     }
 
     @PostMapping("/{customer-id}/request-delivery")
-    public ResponseEntity<Void> request(
+    public ResponseEntity<Void> register(
             @PathVariable(name = "customer-id") Long customerId,
             @Valid @RequestBody DeliveryRequest request,
             UriComponentsBuilder builder) {

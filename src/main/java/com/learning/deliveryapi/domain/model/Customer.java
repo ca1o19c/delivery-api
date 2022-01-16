@@ -18,7 +18,6 @@ import java.util.Objects;
 public class Customer {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
@@ -29,7 +28,6 @@ public class Customer {
 
     public static Customer from(CustomerRequest customerRequest) {
         return Customer.builder()
-                .id(customerRequest.getId())
                 .name(customerRequest.getName())
                 .email(customerRequest.getEmail())
                 .phoneNumber(customerRequest.getPhoneNumber())
