@@ -29,16 +29,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<exceptionFormat.Field> field = new ArrayList<>();
+        List<ExceptionFormat.Field> field = new ArrayList<>();
 
         for (ObjectError error : ex.getBindingResult().getAllErrors()) {
             String name = ((FieldError) error).getField();
             String message = messageSource.getMessage(error, LocaleContextHolder.getLocale());
 
-            field.add(new exceptionFormat.Field(name, message));
+            field.add(new ExceptionFormat.Field(name, message));
         }
 
-        var formattedException = new exceptionFormat();
+        var formattedException = new ExceptionFormat();
         formattedException.setStatus(status.value());
         formattedException.setDateTime(OffsetDateTime.now());
         formattedException.setTitle("One or more fields are invalid. Please fill in correctly and try again.");
@@ -51,7 +51,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleEntidadeNaoEncontrada(EntityNotFoundException ex, WebRequest request) {
         var status = HttpStatus.NOT_FOUND;
 
-        var formattedException = new exceptionFormat();
+        var formattedException = new ExceptionFormat();
         formattedException.setStatus(status.value());
         formattedException.setDateTime(OffsetDateTime.now());
         formattedException.setTitle(ex.getMessage());
@@ -63,7 +63,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNegocio(BusinessException ex, WebRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
 
-        var formattedException = new exceptionFormat();
+        var formattedException = new ExceptionFormat();
         formattedException.setStatus(status.value());
         formattedException.setDateTime(OffsetDateTime.now());
         formattedException.setTitle(ex.getMessage());

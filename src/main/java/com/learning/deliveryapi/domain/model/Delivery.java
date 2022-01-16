@@ -7,6 +7,8 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -20,7 +22,6 @@ import java.util.Objects;
 public class Delivery {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
@@ -30,6 +31,9 @@ public class Delivery {
 
     @Embedded
     private Receiver receiver;
+
+    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
+    private List<Occurrence> ocurrences = new ArrayList<>();
 
     @Column(name = "delivery_fee")
     private BigDecimal deliveryFee;
@@ -43,10 +47,9 @@ public class Delivery {
     @Column(name = "finished_date")
     private OffsetDateTime finishedDate;
 
-    public static Delivery valueof(DeliveryRequest deliveryRequest) {
+    public static Delivery from(DeliveryRequest deliveryRequest) {
         return Delivery.builder()
-                .customer(Customer.valueof(deliveryRequest.getCustomer()))
-                .receiver(Receiver.valueof(deliveryRequest.getReceiver()))
+                .receiver(Receiver.from(deliveryRequest.getReceiver()))
                 .deliveryFee(deliveryRequest.getDeliveryFee())
                 .build();
     }
@@ -62,5 +65,17 @@ public class Delivery {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public Occurrence addOccurrence(String description) {
+        var occurrence = new Occurrence();
+
+        occurrence.setDescription(description);
+        occurrence.setRegistrationDate(OffsetDateTime.now());
+        occurrence.setDelivery(this);
+
+        this.getOcurrences().add(occurrence);
+
+        return occurrence;
     }
 }

@@ -30,7 +30,7 @@ public class Receiver {
     @Column(name = "receiver_neighbourhood")
     private String neighbourhood;
 
-    public static Receiver valueof(ReceiverRequest receiverRequest) {
+    public static Receiver from(ReceiverRequest receiverRequest) {
         return Receiver.builder()
                 .name(receiverRequest.getName())
                 .street(receiverRequest.getStreet())
@@ -39,5 +39,4 @@ public class Receiver {
                 .complement(receiverRequest.getComplement())
                 .build();
     }
-
 }

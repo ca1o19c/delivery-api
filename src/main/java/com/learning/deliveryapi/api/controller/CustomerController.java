@@ -33,14 +33,14 @@ public class CustomerController {
 
         return response
                 .stream()
-                .map(CustomerResponse::valueof)
+                .map(CustomerResponse::from)
                 .collect(Collectors.toUnmodifiableList());
     }
 
     @GetMapping("/{customer-id}")
     public ResponseEntity<CustomerResponse> getById(@PathVariable(name = "customer-id") Long customerId) {
         var entity = customerService.getById(customerId);
-        var response = CustomerResponse.valueof(entity);
+        var response = CustomerResponse.from(entity);
 
         return ResponseEntity.ok(response);
     }
@@ -50,7 +50,7 @@ public class CustomerController {
             @Valid @RequestBody CustomerRequest request,
             UriComponentsBuilder builder) {
 
-        var entity = Customer.valueof(request);
+        var entity = Customer.from(request);
 
         var newCustomerId = customerService.saveCustomer(entity);
 
@@ -64,7 +64,7 @@ public class CustomerController {
             @Valid @RequestBody CustomerRequest request,
             @PathVariable(name = "customer-id") Long customerId) {
 
-        var entity = Customer.valueof(request);
+        var entity = Customer.from(request);
 
         customerService.updateCustomer(entity, customerId);
     }

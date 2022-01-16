@@ -1,6 +1,5 @@
 package com.learning.deliveryapi.domain.service;
 
-import com.learning.deliveryapi.api.model.CustomerRequest;
 import com.learning.deliveryapi.api.model.DeliveryRequest;
 import com.learning.deliveryapi.domain.exception.EntityNotFoundException;
 import com.learning.deliveryapi.domain.model.Delivery;
@@ -29,10 +28,9 @@ public class DeliveryRequestService {
 
         var customer = customerService.getById(customerId);
 
-        request.setCustomer(CustomerRequest.valueof(customer));
+        var entity = Delivery.from(request);
 
-        var entity = Delivery.valueof(request);
-
+        entity.setCustomer(customer);
         entity.setStatus(DeliveryStatus.PENDING);
         entity.setRequestDate(OffsetDateTime.now());
 

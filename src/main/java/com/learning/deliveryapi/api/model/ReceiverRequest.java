@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 
@@ -18,16 +19,20 @@ import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseS
 public class ReceiverRequest {
 
     @NotBlank
+    @Size(max = 60)
     private String name;
 
     @NotBlank
+    @Size(max = 255)
     private String street;
 
     @NotBlank
+    @Size(max = 30)
     private String number;
 
     private String complement;
 
     @NotBlank
+    @Size(max = 60)
     private String neighbourhood;
 }
