@@ -29,9 +29,9 @@ public class DeliveryRequestService {
 
         var customer = customerService.getById(customerId);
 
-        request.setCustomer(CustomerRequest.valueof(customer));
+        request.setCustomer(CustomerRequest.from(customer));
 
-        var entity = Delivery.valueof(request);
+        var entity = Delivery.from(request);
 
         entity.setStatus(DeliveryStatus.PENDING);
         entity.setRequestDate(OffsetDateTime.now());

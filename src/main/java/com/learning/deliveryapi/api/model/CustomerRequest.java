@@ -35,7 +35,7 @@ public class CustomerRequest {
     @Size(max = 20)
     private String phoneNumber;
 
-    public static CustomerRequest valueof(Customer customer) {
+    public static CustomerRequest from(Customer customer) {
         return CustomerRequest.builder()
                 .id(customer.getId())
                 .email(customer.getEmail())

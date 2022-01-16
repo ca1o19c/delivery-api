@@ -27,7 +27,7 @@ public class Customer {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    public static Customer valueof(CustomerRequest customerRequest) {
+    public static Customer from(CustomerRequest customerRequest) {
         return Customer.builder()
                 .id(customerRequest.getId())
                 .name(customerRequest.getName())

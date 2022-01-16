@@ -28,11 +28,11 @@ public class DeliveryResponse {
     private OffsetDateTime finishedDate;
     private OffsetDateTime requestDate;
 
-    public static DeliveryResponse valueof(Delivery delivery) {
+    public static DeliveryResponse from(Delivery delivery) {
         return DeliveryResponse.builder()
                 .id(delivery.getId())
                 .receiver(ReceiverResponse.from(delivery.getReceiver()))
-                .customer(CustomerResponse.valueof(delivery.getCustomer()))
+                .customer(CustomerResponse.from(delivery.getCustomer()))
                 .deliveryFee(delivery.getDeliveryFee())
                 .status(delivery.getStatus())
                 .finishedDate(delivery.getFinishedDate())

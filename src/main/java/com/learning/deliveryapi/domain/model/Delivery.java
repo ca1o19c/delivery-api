@@ -43,10 +43,10 @@ public class Delivery {
     @Column(name = "finished_date")
     private OffsetDateTime finishedDate;
 
-    public static Delivery valueof(DeliveryRequest deliveryRequest) {
+    public static Delivery from(DeliveryRequest deliveryRequest) {
         return Delivery.builder()
-                .customer(Customer.valueof(deliveryRequest.getCustomer()))
-                .receiver(Receiver.valueof(deliveryRequest.getReceiver()))
+                .customer(Customer.from(deliveryRequest.getCustomer()))
+                .receiver(Receiver.from(deliveryRequest.getReceiver()))
                 .deliveryFee(deliveryRequest.getDeliveryFee())
                 .build();
     }

@@ -21,7 +21,7 @@ public class CustomerResponse {
     private String email;
     private String phoneNumber;
 
-    public static CustomerResponse valueof(Customer customer) {
+    public static CustomerResponse from(Customer customer) {
         return CustomerResponse.builder()
                 .id(customer.getId())
                 .email(customer.getEmail())
