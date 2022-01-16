@@ -14,7 +14,8 @@ public class FinalizeDeliveryService {
 
     Logger logger = LoggerFactory.getLogger(FinalizeDeliveryService.class);
 
-    public FinalizeDeliveryService(DeliveryRequestService deliveryRequestService, DeliveryRepository deliveryRepository) {
+    public FinalizeDeliveryService(final DeliveryRequestService deliveryRequestService,
+                                   final DeliveryRepository deliveryRepository) {
         this.deliveryRequestService = deliveryRequestService;
         this.deliveryRepository = deliveryRepository;
     }

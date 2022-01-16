@@ -20,9 +20,10 @@ import java.util.stream.Collectors;
 public class CustomerController {
 
     private final CustomerService customerService;
+
     Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(final CustomerService customerService) {
         this.customerService = customerService;
     }
 

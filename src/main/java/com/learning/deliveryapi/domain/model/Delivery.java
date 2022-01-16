@@ -36,7 +36,7 @@ public class Delivery {
     private Receiver receiver;
 
     @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL)
-    private List<Occurrence> ocurrences = new ArrayList<>();
+    private List<Occurrence> occurrences = new ArrayList<>();
 
     @Column(name = "delivery_fee")
     private BigDecimal deliveryFee;
@@ -97,7 +97,7 @@ public class Delivery {
         occurrence.setRegistrationDate(OffsetDateTime.now());
         occurrence.setDelivery(this);
 
-        this.getOcurrences().add(occurrence);
+        this.getOccurrences().add(occurrence);
 
         return occurrence;
     }

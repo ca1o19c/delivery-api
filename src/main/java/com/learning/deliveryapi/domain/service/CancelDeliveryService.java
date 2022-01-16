@@ -14,7 +14,8 @@ public class CancelDeliveryService {
 
     Logger logger = LoggerFactory.getLogger(CancelDeliveryService.class);
 
-    public CancelDeliveryService(DeliveryRequestService deliveryRequestService, DeliveryRepository deliveryRepository) {
+    public CancelDeliveryService(final DeliveryRequestService deliveryRequestService,
+                                 final DeliveryRepository deliveryRepository) {
         this.deliveryRequestService = deliveryRequestService;
         this.deliveryRepository = deliveryRepository;
     }

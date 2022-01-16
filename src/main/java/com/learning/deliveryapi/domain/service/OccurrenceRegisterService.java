@@ -11,7 +11,7 @@ public class OccurrenceRegisterService {
 
     public final DeliveryRequestService deliveryRequestService;
 
-    public OccurrenceRegisterService(DeliveryRequestService deliveryRequestService) {
+    public OccurrenceRegisterService(final DeliveryRequestService deliveryRequestService) {
         this.deliveryRequestService = deliveryRequestService;
     }
 
@@ -25,6 +25,6 @@ public class OccurrenceRegisterService {
     public List<Occurrence> getById(Long deliveryId) {
         var delivery = deliveryRequestService.getById(deliveryId);
 
-        return delivery.getOcurrences();
+        return delivery.getOccurrences();
     }
 }

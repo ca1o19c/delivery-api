@@ -26,9 +26,9 @@ public class DeliveryController {
 
     Logger logger = LoggerFactory.getLogger(DeliveryController.class);
 
-    public DeliveryController(DeliveryRequestService deliveryRequestService,
-                              FinalizeDeliveryService finalizeDeliveryService,
-                              CancelDeliveryService cancelDeliveryService) {
+    public DeliveryController(final DeliveryRequestService deliveryRequestService,
+                              final FinalizeDeliveryService finalizeDeliveryService,
+                              final CancelDeliveryService cancelDeliveryService) {
         this.deliveryRequestService = deliveryRequestService;
         this.finalizeDeliveryService = finalizeDeliveryService;
         this.cancelDeliveryService = cancelDeliveryService;

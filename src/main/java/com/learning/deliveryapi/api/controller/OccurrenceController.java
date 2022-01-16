@@ -19,9 +19,10 @@ import java.util.stream.Collectors;
 public class OccurrenceController {
 
     private final OccurrenceRegisterService occurrenceRegisterService;
+
     Logger logger = LoggerFactory.getLogger(OccurrenceController.class);
 
-    public OccurrenceController(OccurrenceRegisterService occurrenceRegisterService) {
+    public OccurrenceController(final OccurrenceRegisterService occurrenceRegisterService) {
         this.occurrenceRegisterService = occurrenceRegisterService;
     }
 

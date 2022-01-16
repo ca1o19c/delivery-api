@@ -17,8 +17,8 @@ public class DeliveryRequestService {
     private final DeliveryRepository deliveryRepository;
     private final CustomerService customerService;
 
-    public DeliveryRequestService(DeliveryRepository deliveryRepository,
-                                  CustomerService customerService) {
+    public DeliveryRequestService(final DeliveryRepository deliveryRepository,
+                                  final CustomerService customerService) {
         this.deliveryRepository = deliveryRepository;
         this.customerService = customerService;
     }
