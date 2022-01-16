@@ -2,6 +2,7 @@ package com.learning.deliveryapi.api.controller;
 
 import com.learning.deliveryapi.api.model.DeliveryRequest;
 import com.learning.deliveryapi.api.model.DeliveryResponse;
+import com.learning.deliveryapi.domain.service.CancelDeliveryService;
 import com.learning.deliveryapi.domain.service.DeliveryRequestService;
 import com.learning.deliveryapi.domain.service.FinalizeDeliveryService;
 import org.slf4j.Logger;
@@ -21,12 +22,16 @@ public class DeliveryController {
 
     private final DeliveryRequestService deliveryRequestService;
     private final FinalizeDeliveryService finalizeDeliveryService;
+    private final CancelDeliveryService cancelDeliveryService;
 
     Logger logger = LoggerFactory.getLogger(DeliveryController.class);
 
-    public DeliveryController(DeliveryRequestService deliveryRequestService, FinalizeDeliveryService finalizeDeliveryService) {
+    public DeliveryController(DeliveryRequestService deliveryRequestService,
+                              FinalizeDeliveryService finalizeDeliveryService,
+                              CancelDeliveryService cancelDeliveryService) {
         this.deliveryRequestService = deliveryRequestService;
         this.finalizeDeliveryService = finalizeDeliveryService;
+        this.cancelDeliveryService = cancelDeliveryService;
     }
 
     @GetMapping
@@ -44,6 +49,12 @@ public class DeliveryController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void finalizeDelivery(@PathVariable(name = "delivery-id") Long deliveryId) {
         finalizeDeliveryService.finalizeDelivery(deliveryId);
+    }
+
+    @PutMapping("/{delivery-id}/cancel")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancelDelivery(@PathVariable(name = "delivery-id") Long deliveryId) {
+        cancelDeliveryService.cancelDelivery(deliveryId);
     }
 
     @PostMapping("/{customer-id}/request-delivery")
