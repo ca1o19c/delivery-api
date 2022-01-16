@@ -41,7 +41,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         var formattedException = new exceptionFormat();
         formattedException.setStatus(status.value());
         formattedException.setDateTime(OffsetDateTime.now());
-        formattedException.setTitle("Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.");
+        formattedException.setTitle("One or more fields are invalid. Please fill in correctly and try again.");
         formattedException.setFields(field);
 
         return handleExceptionInternal(ex, formattedException, headers, status, request);

@@ -1,5 +1,7 @@
 package com.learning.deliveryapi.domain.service;
 
+import com.learning.deliveryapi.api.model.CustomerRequest;
+import com.learning.deliveryapi.api.model.DeliveryRequest;
 import com.learning.deliveryapi.domain.exception.EntityNotFoundException;
 import com.learning.deliveryapi.domain.model.Delivery;
 import com.learning.deliveryapi.domain.model.DeliveryStatus;
@@ -7,7 +9,8 @@ import com.learning.deliveryapi.domain.repository.DeliveryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.List;
 
 @Service
 public class DeliveryRequestService {
@@ -22,22 +25,29 @@ public class DeliveryRequestService {
     }
 
     @Transactional
-    public Long requestDelivery(Long customerId, Delivery delivery) {
+    public Long requestDelivery(Long customerId, DeliveryRequest request) {
 
         var customer = customerService.getById(customerId);
 
-        delivery.setCustomer(customer);
-        delivery.setStatus(DeliveryStatus.PENDING);
-        delivery.setRequestDate(LocalDateTime.now());
+        request.setCustomer(CustomerRequest.valueof(customer));
 
-        var entity = deliveryRepository.save(delivery);
+        var entity = Delivery.valueof(request);
 
-        return entity.getId();
+        entity.setStatus(DeliveryStatus.PENDING);
+        entity.setRequestDate(OffsetDateTime.now());
+
+        var save = deliveryRepository.save(entity);
+
+        return save.getId();
     }
 
     public Delivery getById(Long deliveryId) {
 
         return deliveryRepository.findById(deliveryId)
-                .orElseThrow(() -> new EntityNotFoundException("Entrega não encontrada."));
+                .orElseThrow(() -> new EntityNotFoundException("Delivery not found."));
+    }
+
+    public List<Delivery> getAllDeliveries() {
+        return deliveryRepository.findAll();
     }
 }

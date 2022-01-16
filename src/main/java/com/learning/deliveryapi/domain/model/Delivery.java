@@ -1,20 +1,22 @@
 package com.learning.deliveryapi.domain.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import com.learning.deliveryapi.api.model.DeliveryRequest;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.Objects;
 
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
+@Builder
+@ToString
 @Entity
 @Table(name = "deliveries")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Delivery {
 
     @Id
@@ -23,25 +25,42 @@ public class Delivery {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @NotNull
     @ManyToOne
     private Customer customer;
 
     @Embedded
     private Receiver receiver;
 
-    @NotNull
     @Column(name = "delivery_fee")
     private BigDecimal deliveryFee;
 
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column(name = "request_date")
-    private LocalDateTime requestDate;
+    private OffsetDateTime requestDate;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Column(name = "finished_date")
-    private LocalDateTime finishedDate;
+    private OffsetDateTime finishedDate;
+
+    public static Delivery valueof(DeliveryRequest deliveryRequest) {
+        return Delivery.builder()
+                .customer(Customer.valueof(deliveryRequest.getCustomer()))
+                .receiver(Receiver.valueof(deliveryRequest.getReceiver()))
+                .deliveryFee(deliveryRequest.getDeliveryFee())
+                .build();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Delivery delivery = (Delivery) o;
+        return id != null && Objects.equals(id, delivery.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

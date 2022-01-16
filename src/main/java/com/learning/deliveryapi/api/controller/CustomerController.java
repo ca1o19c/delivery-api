@@ -1,5 +1,7 @@
 package com.learning.deliveryapi.api.controller;
 
+import com.learning.deliveryapi.api.model.CustomerRequest;
+import com.learning.deliveryapi.api.model.CustomerResponse;
 import com.learning.deliveryapi.domain.model.Customer;
 import com.learning.deliveryapi.domain.service.CustomerService;
 import org.slf4j.Logger;
@@ -11,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("delivery-api/v1/customers")
@@ -25,21 +28,31 @@ public class CustomerController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Customer> getAll() {
-        return customerService.getAllCustomers();
+    public List<CustomerResponse> getAll() {
+        var response = customerService.getAllCustomers();
+
+        return response
+                .stream()
+                .map(CustomerResponse::valueof)
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @GetMapping("/{customer-id}")
-    public ResponseEntity<Customer> getById(@PathVariable(name = "customer-id") Long customerId) {
-        return ResponseEntity.ok(customerService.getById(customerId));
+    public ResponseEntity<CustomerResponse> getById(@PathVariable(name = "customer-id") Long customerId) {
+        var entity = customerService.getById(customerId);
+        var response = CustomerResponse.valueof(entity);
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
     public ResponseEntity<Void> createNewCustomer(
-            @Valid @RequestBody Customer customer,
+            @Valid @RequestBody CustomerRequest request,
             UriComponentsBuilder builder) {
 
-        var newCustomerId = customerService.saveCustomer(customer);
+        var entity = Customer.valueof(request);
+
+        var newCustomerId = customerService.saveCustomer(entity);
 
         return ResponseEntity.created(builder.path("delivery-api/v1/customers/{customer-id}")
                 .buildAndExpand(newCustomerId).toUri()).build();
@@ -48,9 +61,12 @@ public class CustomerController {
     @PutMapping("/{customer-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCustomer(
-            @Valid @RequestBody Customer customer,
+            @Valid @RequestBody CustomerRequest request,
             @PathVariable(name = "customer-id") Long customerId) {
-        customerService.updateCustomer(customer, customerId);
+
+        var entity = Customer.valueof(request);
+
+        customerService.updateCustomer(entity, customerId);
     }
 
     @DeleteMapping("/{customer-id}")
