@@ -25,7 +25,7 @@ public class CancelDeliveryService {
 
         delivery.cancelDelivery();
 
-        logger.info("Finalizing delivery with id: {}", delivery.getId());
+        logger.info("Canceling delivery with id: {}", delivery.getId());
 
         deliveryRepository.save(delivery);
     }
